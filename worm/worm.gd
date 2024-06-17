@@ -42,14 +42,15 @@ func handle_turns(delta):
 	
 
 func clamp_to_screen():
-	if position.x > screen_size.x:
+	if position.x >= screen_size.x - size.x:
 		position.x = 0
 	if position.x < 0:
-		position.x = screen_size.x
-	if position.y > screen_size.y:
+		position.x = screen_size.x - size.x
+		
+	if position.y >= screen_size.y - size.y:
 		position.y = 0
-	if position.y <0:
-		position.y = screen_size.y
+	if position.y < 0:
+		position.y = screen_size.y - size.y
 
 func kill():
 	is_alive = false
