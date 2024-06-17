@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhlmc0wm248gb"]
+
+[ext_resource type="Script" path="res://worm/worm.gd" id="1_kwk4u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xi7jm"]
+size = Vector2(8, 8)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ngjt6"]
+
+[node name="Worm" type="Area2D"]
+script = ExtResource("1_kwk4u")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_xi7jm")
+
+[node name="Panel" type="Panel" parent="."]
+material = SubResource("CanvasItemMaterial_ngjt6")
+offset_right = 8.0
+offset_bottom = 8.0
