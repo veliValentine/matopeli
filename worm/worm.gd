@@ -1,9 +1,8 @@
-extends Area2D
+class_name Worm extends Area2D
 
 @export var velocity = Vector2(1,0)
 @export var speed = 200
 @export var turn_speed = PI / 180 * 3
-
 @export var left_turn_action = "left_1"
 @export var right_turn_action = "right_1"
 
@@ -13,15 +12,15 @@ extends Area2D
 
 @export var is_alive = true
 
+@export var clamp = false
+
 var screen_size
-var past_positions = []
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	$Panel.get("theme_override_styles/panel").bg_color = color
-	$Panel.size = size
+	$ColorRect.size = size
+	$ColorRect.color = color	
 	$CollisionShape2D.shape.size = size
-	print($CollisionShape2D.shape.size)
 
 func _process(delta):
 	var old_position = position
@@ -38,10 +37,15 @@ func handle_turns(delta):
 	velocity = velocity.rotated(turn_direction)
 	velocity = velocity.normalized() * speed
 	position += velocity * delta
-	clamp_to_screen()
+	
+	if clamp:
+		position = position.clamp(Vector2.ZERO, screen_size)
+	else:
+		teleport_to_other_side()
+	round_position()
 	
 
-func clamp_to_screen():
+func teleport_to_other_side():
 	if position.x >= screen_size.x - size.x:
 		position.x = 0
 	if position.x < 0:
@@ -52,5 +56,12 @@ func clamp_to_screen():
 	if position.y < 0:
 		position.y = screen_size.y - size.y
 
+func round_position():
+	position.x = round(position.x)
+	position.y = round(position.y)
+
 func kill():
 	is_alive = false
+
+func get_panel():
+	return $ColorRect

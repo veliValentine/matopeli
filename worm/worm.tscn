@@ -1,14 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhlmc0wm248gb"]
+[gd_scene load_steps=3 format=3 uid="uid://bvwp3xw4w5cr4"]
 
 [ext_resource type="Script" path="res://worm/worm.gd" id="1_kwk4u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xi7jm"]
 size = Vector2(8, 8)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d0rfe"]
-bg_color = Color(0.996078, 0, 0.258824, 1)
-
-[node name="Worm" type="Area2D"]
+[node name="Worm" type="Area2D" groups=["worms"]]
 script = ExtResource("1_kwk4u")
 metadata/_edit_group_ = true
 
@@ -16,7 +13,6 @@ metadata/_edit_group_ = true
 position = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_xi7jm")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 8.0
 offset_bottom = 8.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_d0rfe")
