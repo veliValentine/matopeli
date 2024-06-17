@@ -4,16 +4,29 @@ extends Area2D
 @export var speed = 200
 @export var turn_speed = PI / 180 * 3
 
-@export var left_turn_action = "p1_left"
-@export var right_turn_action = "p1_right"
+@export var left_turn_action = "left_1"
+@export var right_turn_action = "right_1"
+
+@export var color = Color(Color.WHITE)
+
+@export var size = Vector2(8, 8)
+
+@export var is_alive = true
 
 var screen_size
+var past_positions = []
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	$Panel.get("theme_override_styles/panel").bg_color = color
+	$Panel.size = size
+	$CollisionShape2D.shape.size = size
+	print($CollisionShape2D.shape.size)
 
 func _process(delta):
-	handle_turns(delta)
+	var old_position = position
+	if is_alive:
+		handle_turns(delta)
 
 func handle_turns(delta):
 	var turn_direction = 0
@@ -37,3 +50,6 @@ func clamp_to_screen():
 		position.y = 0
 	if position.y <0:
 		position.y = screen_size.y
+
+func kill():
+	is_alive = false
